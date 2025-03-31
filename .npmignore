@@ -2,3 +2,5 @@
 .env.example
 .gitignore
 *.test.js
+test.js
+*.log
