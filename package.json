@@ -9,6 +9,18 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5"
   },
+  "keywords": [
+    "riot-api",
+    "league-of-legends",
+    "lol-api",
+    "datadragon",
+    "summoner",
+    "match-history",
+    "game-data",
+    "node-js",
+    "javascript",
+    "api-wrapper"
+  ],
   "author": "James Timms",
   "description": "A lightweight Node.js wrapper for the Riot Games API, providing easy access to League of Legends game data.",
   "license": "MIT",
